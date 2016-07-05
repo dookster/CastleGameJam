@@ -31,6 +31,16 @@ public class Node : MonoBehaviour {
 	
 	}
 
+    public bool IsNeighbour(Node otherNode)
+    {
+        if (north == otherNode) return true;
+        if (south == otherNode) return true;
+        if (east == otherNode) return true;
+        if (west== otherNode) return true;
+
+        return false;
+    }
+
     public Node GetRandomNeighbour()
     {
         switch(Random.Range(0, 4))

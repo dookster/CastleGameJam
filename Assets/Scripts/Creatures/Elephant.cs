@@ -60,15 +60,16 @@ public class Elephant : WalksOnNodes
 
     void OnMouseDown()
     {
-        if(currentState == CreatureState.CanInteract)
+        if(currentState == CreatureState.CanInteract && 
+            iTween.Count(Player.Instance.gameObject) == 0 && 
+            Player.Instance.interactingCreature == null &&
+            currentNode.IsNeighbour(Player.Instance.currentNode))
         {
             currentState = CreatureState.Interacting;
             Player.Instance.InteractWithCreature(this);
             boxCollider.enabled = false;
             moving = false;
         }
-
-
     }
 
 }

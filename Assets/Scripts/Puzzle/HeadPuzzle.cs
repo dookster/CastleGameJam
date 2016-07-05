@@ -76,7 +76,7 @@ public class HeadPuzzle : MonoBehaviour {
         {
             for (int y = 0; y < height; y++)
             {
-                if(Random.Range(0, width * height) < ((width * height) / 3))
+                if(Random.Range(0, width * height) < ((width * height) / 4))
                 {
                     puzzlePieces[x, y].linkState = PuzzlePiece.Link.none;
                 }

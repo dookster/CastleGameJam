@@ -39,13 +39,11 @@ public class Player : WalksOnNodes {
 	
 	void Update ()
     {
-        //if(interactingCreature != null)
-            HandleInputDown();
+        if(interactingCreature == null) HandleInputDown();
 
         if (iTween.Count(gameObject) == 0)
         {
-            //if (interactingCreature != null)
-                HandleInputHeldDown();
+            if (interactingCreature == null) HandleInputHeldDown();
 
             MoveOnNodes();
         }
@@ -209,12 +207,26 @@ public class Player : WalksOnNodes {
 
     public void InteractWithCreature(Elephant creature)
     {
+        StartCoroutine(TurnAndZoom(creature));
+    }
+
+    // turn creature and zoom to puzzle
+    IEnumerator TurnAndZoom(Elephant creature)
+    {
+        iTween.LookTo(creature.gameObject, iTween.Hash("looktarget", transform, "time", 0.2f));
+        yield return new WaitForSeconds(0.2f);
         ZoomToPuzzle(creature.puzzleCamTarget, creature.puzzleCamLookTarget);
+        interactingCreature = creature;
+
     }
 
     public void StopInteractingWithCreature()
     {
         ReturnCamera();
+
+        // TEMP
+        iTween.MoveBy(interactingCreature.gameObject, iTween.Hash("y", -2, "time", 2, "delay", settings.cameraZoomSpeed));
+        interactingCreature.currentNode.locked = false;
         interactingCreature = null;
     }
 
