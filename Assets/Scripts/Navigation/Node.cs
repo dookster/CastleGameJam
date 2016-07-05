@@ -8,6 +8,8 @@ public class Node : MonoBehaviour {
     public Node east;
     public Node west;
 
+    public bool locked = false;
+
     public GameObject tilePrefab;
 
     private Vector3 gizmoSize = new Vector3(0.5f, 0.1f, 0.5f);
@@ -21,12 +23,30 @@ public class Node : MonoBehaviour {
         // Spawn tile graphics
         GameObject go= Instantiate(tilePrefab, transform.position, transform.rotation) as GameObject;
         go.GetComponent<Tile>().SetNode(this);
+        go.transform.SetParent(transform);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    public Node GetRandomNeighbour()
+    {
+        switch(Random.Range(0, 4))
+        {
+            case 0:
+                return north;
+            case 1:
+                return south;
+            case 2:
+                return east;
+            case 3:
+                return west;
+        }
+
+        return null;
+    }
 
     public void Clear()
     {

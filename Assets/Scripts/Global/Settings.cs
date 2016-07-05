@@ -10,4 +10,14 @@ public class Settings : ScriptableObject
 
     public GameObject[] tilePrefabs;
 
+    /// <summary>
+    /// 0 : empty
+    /// 1 : end line
+    /// 2 : straight
+    /// 3 : corner
+    /// 4 : t - section
+    /// 5 : cross
+    /// </summary>
+    public GameObject[] puzzlePiece;
+
 }

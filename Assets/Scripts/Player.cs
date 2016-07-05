@@ -1,26 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
-public class Player : MonoBehaviour {
+public class Player : WalksOnNodes {
 
     public enum MoveInputDirection { north, south, east, west, turnLeft, turnRight, none };
 
-    public enum LookDirection { north, south, east, west, err }
-
-    public Settings settings;
-
-    public Node currentNode;
-    public Node targetNode;
-
-    public Vector3 forwardTest;
+    
 
     private const int FORWARD = 0;
     private const int BACK = 1;
     private const int LEFT = 2;
     private const int RIGHT = 3;
 
-    private bool turnLeft = false;
-    private bool turnRight = false;
 
     //private int nextMove = -1;
     //private MoveInputDirection nextMove = MoveInputDirection.none;
@@ -31,34 +23,18 @@ public class Player : MonoBehaviour {
 	
 	void Update ()
     {
-        forwardTest = transform.forward;
-
         HandleInputDown();
 
         if (iTween.Count(gameObject) == 0)
         {
             HandleInputHeldDown();
 
-            if(targetNode != null)
-            {
-                iTween.MoveTo(gameObject, iTween.Hash("position", targetNode.transform.position, "speed", settings.playerMoveSpeed, "easetype", "linear"));
-                currentNode = targetNode;
-                targetNode = null;
-            }
-            else if (turnLeft)
-            {
-                iTween.RotateBy(gameObject, iTween.Hash("y", -(1f / 4f), "time", settings.playerTurnSpeed, "easetype", "linear"));
-                turnLeft = false;
-            }
-            else if (turnRight)
-            {
-                iTween.RotateBy(gameObject, iTween.Hash("y", (1f / 4f), "time", settings.playerTurnSpeed, "easetype", "linear"));
-                turnRight = false;
-            }
-
+            MoveOnNodes();
         }
 
     }
+
+
 
     private Node GetNodeForMove(int relativeMoveDir) 
     {
@@ -153,19 +129,19 @@ public class Player : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            targetNode = GetNodeForMove(FORWARD);
+            SetTargetNode(GetNodeForMove(FORWARD));
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            targetNode = GetNodeForMove(BACK);
+            SetTargetNode(GetNodeForMove(BACK));
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            targetNode = GetNodeForMove(LEFT);
+            SetTargetNode(GetNodeForMove(LEFT));
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            targetNode = GetNodeForMove(RIGHT);
+            SetTargetNode(GetNodeForMove(RIGHT));
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -177,23 +153,25 @@ public class Player : MonoBehaviour {
         }
     }
 
+    
+
     private void HandleInputHeldDown()
     {
         if (Input.GetKey(KeyCode.W))
         {
-            targetNode = GetNodeForMove(FORWARD);
+            SetTargetNode(GetNodeForMove(FORWARD));
         }
         if (Input.GetKey(KeyCode.S))
         {
-            targetNode = GetNodeForMove(BACK);
+            SetTargetNode(GetNodeForMove(BACK));
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            targetNode = GetNodeForMove(LEFT);
+            SetTargetNode(GetNodeForMove(LEFT));
         }
         if (Input.GetKey(KeyCode.E))
         {
-            targetNode = GetNodeForMove(RIGHT);
+            SetTargetNode(GetNodeForMove(RIGHT));
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -205,6 +183,8 @@ public class Player : MonoBehaviour {
         }
     }
 
-    
-
+    protected override void Move()
+    {
+        iTween.MoveTo(gameObject, iTween.Hash("position", targetNode.transform.position, "speed", settings.playerMoveSpeed, "easetype", "linear"));
+    }
 }
