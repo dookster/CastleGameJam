@@ -1,36 +1,55 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class Player : WalksOnNodes {
 
     public enum MoveInputDirection { north, south, east, west, turnLeft, turnRight, none };
 
-    
+    public Camera mainCam;
+    public Transform cameraOrigin;
+
+    public Elephant interactingCreature = null;
 
     private const int FORWARD = 0;
     private const int BACK = 1;
     private const int LEFT = 2;
     private const int RIGHT = 3;
 
+    private static Player instance = null;
+    public static Player Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType(typeof(Player)) as Player;
+            }
+            return instance;
+        }
+    }
 
     //private int nextMove = -1;
     //private MoveInputDirection nextMove = MoveInputDirection.none;
 
-    void Start () {
-	
+    protected override void Start () {
+        base.Start();
 	}
 	
 	void Update ()
     {
-        HandleInputDown();
+        //if(interactingCreature != null)
+            HandleInputDown();
 
         if (iTween.Count(gameObject) == 0)
         {
-            HandleInputHeldDown();
+            //if (interactingCreature != null)
+                HandleInputHeldDown();
 
             MoveOnNodes();
         }
+
 
     }
 
@@ -186,5 +205,27 @@ public class Player : WalksOnNodes {
     protected override void Move()
     {
         iTween.MoveTo(gameObject, iTween.Hash("position", targetNode.transform.position, "speed", settings.playerMoveSpeed, "easetype", "linear"));
+    }
+
+    public void InteractWithCreature(Elephant creature)
+    {
+        ZoomToPuzzle(creature.puzzleCamTarget, creature.puzzleCamLookTarget);
+    }
+
+    public void StopInteractingWithCreature()
+    {
+        ReturnCamera();
+        interactingCreature = null;
+    }
+
+    private void ZoomToPuzzle(Transform camTarget, Transform puzzle)
+    {
+        iTween.MoveTo(mainCam.gameObject, iTween.Hash("position", camTarget, "looktarget", puzzle, "time", settings.cameraZoomSpeed, "easetype", "linear"));
+    }
+
+    private void ReturnCamera()
+    {
+        iTween.MoveTo(mainCam.gameObject, iTween.Hash("position", cameraOrigin, "time", settings.cameraZoomSpeed, "easetype", "linear"));
+        iTween.RotateTo(mainCam.gameObject, iTween.Hash("rotation", cameraOrigin, "time", settings.cameraZoomSpeed, "easetype", "linear"));
     }
 }

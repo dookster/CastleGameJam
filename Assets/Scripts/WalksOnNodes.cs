@@ -14,7 +14,7 @@ public abstract class WalksOnNodes : MonoBehaviour {
     protected bool turnRight = false;
 
     // Use this for initialization
-    void Start () {
+    protected virtual void Start () {
         currentNode.locked = true;
 	}
 	
@@ -27,8 +27,7 @@ public abstract class WalksOnNodes : MonoBehaviour {
     {
         if (targetNode != null)
         {
-            Move();
-            currentNode.locked = false;
+            Move();            
             currentNode = targetNode;
             targetNode = null;
         }
@@ -48,6 +47,9 @@ public abstract class WalksOnNodes : MonoBehaviour {
 
     protected void SetTargetNode(Node target)
     {
+        if (target != null && target.locked) return;
+
+        currentNode.locked = false;
         targetNode = target;
         if(targetNode != null) targetNode.locked = true;
     }
