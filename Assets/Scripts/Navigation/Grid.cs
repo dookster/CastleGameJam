@@ -3,8 +3,7 @@ using System.Collections;
 
 public class Grid : MonoBehaviour {
 
-
-    public Transform[][] points;
+    
 
 	// Use this for initialization
 	void Start ()
