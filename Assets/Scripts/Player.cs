@@ -295,16 +295,16 @@ public class Player : WalksOnNodes {
     public void StopInteractingWithCreature()
     {
         ReturnCamera();
-
-        // TEMP
-        iTween.MoveBy(interactingCreature.gameObject, iTween.Hash("y", -2, "time", 2, "delay", settings.cameraZoomSpeed));
-        interactingCreature.eyebrows.Happy();
+        
         StartCoroutine(MoveCreatureAndUnlock(1f));
     }
 
     IEnumerator MoveCreatureAndUnlock(float delay)
     {
         yield return new WaitForSeconds(delay);
+        interactingCreature.eyebrows.Happy();
+        yield return new WaitForSeconds(delay);
+        iTween.MoveBy(interactingCreature.gameObject, iTween.Hash("y", -2, "time", 2));
         interactingCreature.currentNode.locked = false;
         interactingCreature = null;
     }

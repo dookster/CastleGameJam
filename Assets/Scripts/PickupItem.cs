@@ -21,7 +21,7 @@ public class PickupItem : MonoBehaviour {
     void IdleAnimate()
     {
         itemGraphic.transform.Rotate(new Vector3(0, 0, 20f));
-        iTween.RotateBy(itemGraphic, iTween.Hash("y", 5f, "speed", 20f, "looptype", "loop", "space", Space.World));
+        iTween.RotateBy(itemGraphic, iTween.Hash("y", 5f, "speed", 50f, "looptype", "loop", "space", Space.World, "easetype", "linear"));
     }
 
     public void StopIdleAnimaion()

@@ -206,11 +206,6 @@ public class PuzzlePiece : MonoBehaviour {
             }
         }
 
-        
-
-        
-
-        
     }
 
     void ClickRotateAndCheckRight()

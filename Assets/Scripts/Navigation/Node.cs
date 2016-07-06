@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Node : MonoBehaviour {
 
@@ -46,19 +47,46 @@ public class Node : MonoBehaviour {
 
     public Node GetRandomNeighbour()
     {
-        switch(Random.Range(0, 4))
+        List<Node> availableNodes = new List<Node>();
+        if (north != null && !north.locked)
         {
-            case 0:
-                return north;
-            case 1:
-                return south;
-            case 2:
-                return east;
-            case 3:
-                return west;
+            availableNodes.Add(north);
+        }
+        if (south != null && !south.locked)
+        {
+            availableNodes.Add(south);
+        }
+        if (east != null && !east.locked)
+        {
+            availableNodes.Add(east);
+        }
+        if (west!= null && !west.locked)
+        {
+            availableNodes.Add(west);
         }
 
-        return null;
+        if(availableNodes.Count > 0)
+        {
+            return availableNodes[Random.Range(0, availableNodes.Count)];
+        }
+        else
+        {
+            return null;
+        }
+
+        //switch (Random.Range(0, 4))
+        //{
+        //    case 0:
+        //        return north;
+        //    case 1:
+        //        return south;
+        //    case 2:
+        //        return east;
+        //    case 3:
+        //        return west;
+        //}
+
+        //return null;
     }
 
     public void Clear()

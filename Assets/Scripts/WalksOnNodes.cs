@@ -27,7 +27,8 @@ public abstract class WalksOnNodes : MonoBehaviour {
     {
         if (targetNode != null)
         {
-            Move();            
+            Move();
+            currentNode.locked = false;
             currentNode = targetNode;
             targetNode = null;
         }
@@ -49,8 +50,13 @@ public abstract class WalksOnNodes : MonoBehaviour {
     {
         if (target != null && target.locked) return;
 
-        currentNode.locked = false;
-        targetNode = target;
-        if(targetNode != null) targetNode.locked = true;
+        if (target != null)
+        {
+            if (targetNode != null) targetNode.locked = false;
+
+            currentNode.locked = false;
+            targetNode = target;
+            targetNode.locked = true;
+        }
     }
 }
