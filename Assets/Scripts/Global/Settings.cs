@@ -8,6 +8,8 @@ public class Settings : ScriptableObject
     public float playerMoveSpeed = 0.5f;
     public float playerTurnSpeed = 0.5f;
 
+    public float creatureMoveSpeed = 0.5f;
+
     public float cameraZoomSpeed = 1f;
 
     public GameObject[] tilePrefabs;

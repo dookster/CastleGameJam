@@ -87,9 +87,18 @@ public class Elephant : WalksOnNodes
     protected override void Move()
     {
         float rotateTime = 0.2f;
-
         iTween.LookTo(gameObject, iTween.Hash("looktarget", targetNode.transform.position, "time", rotateTime));
-        iTween.MoveTo(gameObject, iTween.Hash("delay", rotateTime, "position", targetNode.transform.position, "speed", settings.playerMoveSpeed, "easetype", "linear"));
+        iTween.MoveTo(gameObject, iTween.Hash("delay", rotateTime, "position", targetNode.transform.position, "speed", settings.creatureMoveSpeed, "easetype", "linear"));
+        animator.Play("Walk");
+        StartCoroutine(MoveAndAnimate(rotateTime));
+        //iTween.LookTo(gameObject, iTween.Hash("looktarget", targetNode.transform.position, "time", rotateTime));
+        //iTween.MoveTo(gameObject, iTween.Hash("position", targetNode.transform.position, "speed", settings.creatureMoveSpeed, "easetype", "linear"));
+    }
+
+    IEnumerator MoveAndAnimate(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
     }
 
     void OnMouseUpAsButton()
