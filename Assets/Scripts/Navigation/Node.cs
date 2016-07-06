@@ -12,6 +12,9 @@ public class Node : MonoBehaviour {
 
     public GameObject tilePrefab;
 
+    [HideInInspector]
+    public Door door;
+
     private Vector3 gizmoSize = new Vector3(0.5f, 0.1f, 0.5f);
 
     [Space()]

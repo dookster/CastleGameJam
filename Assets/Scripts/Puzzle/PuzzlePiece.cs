@@ -170,24 +170,57 @@ public class PuzzlePiece : MonoBehaviour {
     }
 
 
-    void OnMouseDown()
+
+    //void OnMouseUpAsButton()
+    void OnMouseOver()
     {
+        // are we playing this game?
+        if(ownerPuzzle.creature != Player.Instance.interactingCreature)
+        {
+            return;
+        }
+
         float moveTime = 0.2f;
         float rotateTime = 0.2f;
-
         float moveLength = transform.parent.parent.localScale.y / 3f;
 
-        if (iTween.Count(gameObject) == 0)
+        // left button
+        if (Input.GetMouseButtonUp(0))
         {
-            iTween.MoveBy(gameObject, iTween.Hash("y", moveLength, "time", moveTime));
-            iTween.RotateBy(gameObject, iTween.Hash("y", 1f / 4f, "time", rotateTime));
-            iTween.MoveBy(gameObject, iTween.Hash("y", -moveLength, "time", moveTime, "delay", rotateTime, "oncomplete", "ClickRotateAndCheck"));
+            if (iTween.Count(gameObject) == 0)
+            {
+                iTween.MoveBy(gameObject, iTween.Hash("y", moveLength, "time", moveTime));
+                iTween.RotateBy(gameObject, iTween.Hash("y", 1f / 4f, "time", rotateTime));
+                iTween.MoveBy(gameObject, iTween.Hash("y", -moveLength, "time", moveTime, "delay", rotateTime, "oncomplete", "ClickRotateAndCheckRight"));
+            }
         }
+
+        // right button
+        if (Input.GetMouseButtonUp(1))
+        {
+            if (iTween.Count(gameObject) == 0)
+            {
+                iTween.MoveBy(gameObject, iTween.Hash("y", moveLength, "time", moveTime));
+                iTween.RotateBy(gameObject, iTween.Hash("y", - (1f / 4f), "time", rotateTime));
+                iTween.MoveBy(gameObject, iTween.Hash("y", -moveLength, "time", moveTime, "delay", rotateTime, "oncomplete", "ClickRotateAndCheckLeft"));
+            }
+        }
+
+        
+
+        
+
+        
     }
 
-    void ClickRotateAndCheck()
+    void ClickRotateAndCheckRight()
     {
         RotateLinksRight();
+        ownerPuzzle.CheckForSolution();
+    }
+    void ClickRotateAndCheckLeft()
+    {
+        RotateLinksLeft();
         ownerPuzzle.CheckForSolution();
     }
 

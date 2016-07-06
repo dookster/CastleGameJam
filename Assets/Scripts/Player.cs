@@ -10,12 +10,17 @@ public class Player : WalksOnNodes {
     public Camera mainCam;
     public Transform cameraOrigin;
 
+    public Transform itemHolder;
+
     public Elephant interactingCreature = null;
 
     private const int FORWARD = 0;
     private const int BACK = 1;
     private const int LEFT = 2;
     private const int RIGHT = 3;
+
+    [HideInInspector]
+    public bool canMove = true;
 
     private static Player instance = null;
     public static Player Instance
@@ -39,19 +44,24 @@ public class Player : WalksOnNodes {
 	
 	void Update ()
     {
-        if(interactingCreature == null) HandleInputDown();
+        // TEST
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SwingItem();
+            //RemoveItem();
+        }
+
+
+        if(interactingCreature == null && canMove) HandleInputDown();
 
         if (iTween.Count(gameObject) == 0)
         {
-            if (interactingCreature == null) HandleInputHeldDown();
+            if (interactingCreature == null && canMove) HandleInputHeldDown();
 
             MoveOnNodes();
         }
 
-
     }
-
-
 
     private Node GetNodeForMove(int relativeMoveDir) 
     {
@@ -140,7 +150,67 @@ public class Player : WalksOnNodes {
 
         return LookDirection.err;
     }
-   
+
+    public void PickupItem(GameObject itemGraphic)
+    {
+        // move to holder
+        canMove = false;
+
+        StartCoroutine(MoveRotatePickup(itemGraphic));
+    }
+
+    IEnumerator MoveRotatePickup(GameObject itemGraphic)
+    {
+        float moveTime = 1f;
+        //float rotateTime = 0.5f;
+        //iTween.RotateTo(itemGraphic, iTween.Hash("rotation", itemHolder.transform, "time", rotateTime));
+        //yield return new WaitForSeconds(rotateTime);
+        iTween.MoveTo(itemGraphic, iTween.Hash("position", itemHolder.position, "time", moveTime, "looktarget", (itemHolder.position + itemHolder.forward)));
+        yield return new WaitForSeconds(moveTime);
+        itemGraphic.transform.SetParent(itemHolder);
+
+        canMove = true;
+    }
+
+    void RemoveItem()
+    {
+        GameObject item = itemHolder.GetChild(0).gameObject;
+        if (item != null)
+        {
+            StartCoroutine(MoveRemovedItem(item));
+        }
+    }
+
+    IEnumerator MoveRemovedItem(GameObject item)
+    {
+        float moveTime = 1;
+        iTween.MoveBy(item, iTween.Hash("y", -2, "time", moveTime));
+        yield return new WaitForSeconds(moveTime);
+        item.transform.SetParent(null);
+        Destroy(item);
+    }
+
+    void SwingItem()
+    {
+        if (iTween.Count(itemHolder.gameObject) == 0 && itemHolder.childCount > 0)
+        {
+            StartCoroutine(RotateSwingingItem());
+        }
+    }
+    
+    IEnumerator RotateSwingingItem()
+    {
+        float rotateTime = 1f;
+        iTween.PunchRotation(itemHolder.gameObject, iTween.Hash("x", 90f, "time", rotateTime));
+        yield return new WaitForSeconds(rotateTime/5);
+
+        // Get any door we're at
+        Node facingNode = GetNodeForMove(FORWARD);
+        if(facingNode != null && facingNode.door != null)
+        {
+            facingNode.door.Open();
+        }
+    }
 
     private void HandleInputDown()
     {
@@ -208,6 +278,7 @@ public class Player : WalksOnNodes {
     public void InteractWithCreature(Elephant creature)
     {
         StartCoroutine(TurnAndZoom(creature));
+        interactingCreature = creature;
     }
 
     // turn creature and zoom to puzzle
@@ -218,7 +289,7 @@ public class Player : WalksOnNodes {
         creature.eyebrows.Angry();
         yield return new WaitForSeconds(1f);
         ZoomToPuzzle(creature.puzzleCamTarget, creature.puzzleCamLookTarget);
-        interactingCreature = creature;
+        
     }
 
     public void StopInteractingWithCreature()

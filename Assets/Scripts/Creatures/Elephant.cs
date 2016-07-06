@@ -30,6 +30,9 @@ public class Elephant : WalksOnNodes
 
         GameObject go = Instantiate(puzzlePrefab);
 
+        HeadPuzzle puzzle = go.GetComponent<HeadPuzzle>();
+        puzzle.creature = this;
+
         go.transform.SetParent(puzzleHinge, false);
     }
 
@@ -60,7 +63,7 @@ public class Elephant : WalksOnNodes
         iTween.MoveTo(gameObject, iTween.Hash("delay", rotateTime, "position", targetNode.transform.position, "speed", settings.playerMoveSpeed, "easetype", "linear"));
     }
 
-    void OnMouseDown()
+    void OnMouseUpAsButton()
     {
         if(currentState == CreatureState.CanInteract && 
             iTween.Count(Player.Instance.gameObject) == 0 && 

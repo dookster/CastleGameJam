@@ -19,7 +19,7 @@ public class HeadPuzzle : MonoBehaviour {
 
     public Settings settings;
 
-    
+    public Elephant creature;
 
 	// Use this for initialization
 	void Start ()
