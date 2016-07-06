@@ -34,11 +34,15 @@ public abstract class WalksOnNodes : MonoBehaviour {
         }
         else if (turnLeft)
         {
+            AudioClip turnClip = settings.turnAudio[UnityEngine.Random.Range(0, settings.turnAudio.Length)];
+            AudioPlayer.Instance.Play2DAudio(turnClip);
             iTween.RotateBy(gameObject, iTween.Hash("y", -(1f / 4f), "time", settings.playerTurnSpeed, "easetype", "linear"));
             turnLeft = false;
         }
         else if (turnRight)
         {
+            AudioClip turnClip = settings.turnAudio[UnityEngine.Random.Range(0, settings.turnAudio.Length)];
+            AudioPlayer.Instance.Play2DAudio(turnClip);
             iTween.RotateBy(gameObject, iTween.Hash("y", (1f / 4f), "time", settings.playerTurnSpeed, "easetype", "linear"));
             turnRight = false;
         }

@@ -137,7 +137,7 @@ public class HeadPuzzle : MonoBehaviour {
     {
         if (IsPuzzleSolved())
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             Player.Instance.StopInteractingWithCreature();
         }
     }

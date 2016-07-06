@@ -195,6 +195,7 @@ public class Player : WalksOnNodes {
         if (iTween.Count(itemHolder.gameObject) == 0 && itemHolder.childCount > 0)
         {
             StartCoroutine(RotateSwingingItem());
+            AudioPlayer.Instance.Play2DAudio(settings.swingWeaponAudio, 0.5f);
         }
     }
     
@@ -272,6 +273,9 @@ public class Player : WalksOnNodes {
 
     protected override void Move()
     {
+        AudioClip stepclip = settings.footstepAudio[UnityEngine.Random.Range(0, settings.footstepAudio.Length)];
+        AudioPlayer.Instance.Play2DAudio(stepclip);
+
         iTween.MoveTo(gameObject, iTween.Hash("position", targetNode.transform.position, "speed", settings.playerMoveSpeed, "easetype", "linear"));
     }
 

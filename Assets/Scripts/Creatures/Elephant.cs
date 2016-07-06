@@ -41,11 +41,13 @@ public class Elephant : WalksOnNodes
     public void OpenHead()
     {
         animator.Play("Open");
+        AudioPlayer.Instance.Play2DAudio(settings.openHeadAudio);
     }
 
     public void CloseHead()
     {
         animator.Play("Close");
+        AudioPlayer.Instance.Play2DAudio(settings.closeHeadAudio);
     }
 
     // Update is called once per frame

@@ -24,6 +24,7 @@ public class Door : MonoBehaviour {
     public void Open()
     {
         StartCoroutine(OpenAnimation());
+        AudioPlayer.Instance.Play2DAudio(Player.Instance.settings.openDoorAudio);
     }
 
     IEnumerator OpenAnimation()

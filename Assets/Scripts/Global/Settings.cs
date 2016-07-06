@@ -27,8 +27,15 @@ public class Settings : ScriptableObject
     public AudioClip switch1Audio;
     public AudioClip switch2Audio;
 
-    public AudioClip footstepAudio;
-    public AudioClip turnAudio;
+    public AudioClip[] footstepAudio;
+    public AudioClip[] turnAudio;
 
+    public AudioClip openHeadAudio;
+    public AudioClip closeHeadAudio;
 
+    public AudioClip openDoorAudio;
+    public AudioClip swingWeaponAudio;
+    public AudioClip pickUpAudio;
+
+    public AudioClip creatureWalkAudio;
 }
