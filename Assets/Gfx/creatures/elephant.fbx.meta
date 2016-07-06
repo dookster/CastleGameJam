@@ -6,11 +6,128 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: eBBrain1
+    100004: eBBrain2
+    100006: eBBrain3
+    100008: eBody
+    100010: eFBrain1
+    100012: eFBrain2
+    100014: eFBrain2 1
+    100016: eFBrain3
+    100018: eFFoot
+    100020: eFHip
+    100022: eFKnee
+    100024: eHead
+    100026: eLBrainA1
+    100028: eLBrainA2
+    100030: eLBrainA3
+    100032: eLBrainA4
+    100034: eLBrainB1
+    100036: eLBrainB2
+    100038: eLBrainB3
+    100040: eLBrainC1
+    100042: eLBrainC2
+    100044: eLBrainC3
+    100046: eLBrainD1
+    100048: eLBrainD2
+    100050: eLBrainD3
+    100052: elephantMesh
+    100054: eLEye
+    100056: eLFoot
+    100058: elHip
+    100060: elHip 1
+    100062: eLKnee
+    100064: eLSide
+    100066: eNeck
+    100068: eRBrainA1
+    100070: eRBrainA2
+    100072: eRBrainA3
+    100074: eRBrainA4
+    100076: eRBrainB1
+    100078: eRBrainB2
+    100080: eRBrainB3
+    100082: eRBrainC1
+    100084: eRBrainC2
+    100086: eRBrainC3
+    100088: eRBrainD1
+    100090: eRBrainD2
+    100092: eRBrainD3
+    100094: eREye
+    100096: eRFoot
+    100098: eRKnee
+    100100: eRoot
+    100102: eRSide
+    100104: eTail1
+    100106: eTail2
+    100108: eTail3
+    100110: eTail4
+    100112: eTail5
+    100114: joint42
     400000: //RootNode
+    400002: eBBrain1
+    400004: eBBrain2
+    400006: eBBrain3
+    400008: eBody
+    400010: eFBrain1
+    400012: eFBrain2
+    400014: eFBrain2 1
+    400016: eFBrain3
+    400018: eFFoot
+    400020: eFHip
+    400022: eFKnee
+    400024: eHead
+    400026: eLBrainA1
+    400028: eLBrainA2
+    400030: eLBrainA3
+    400032: eLBrainA4
+    400034: eLBrainB1
+    400036: eLBrainB2
+    400038: eLBrainB3
+    400040: eLBrainC1
+    400042: eLBrainC2
+    400044: eLBrainC3
+    400046: eLBrainD1
+    400048: eLBrainD2
+    400050: eLBrainD3
+    400052: elephantMesh
+    400054: eLEye
+    400056: eLFoot
+    400058: elHip
+    400060: elHip 1
+    400062: eLKnee
+    400064: eLSide
+    400066: eNeck
+    400068: eRBrainA1
+    400070: eRBrainA2
+    400072: eRBrainA3
+    400074: eRBrainA4
+    400076: eRBrainB1
+    400078: eRBrainB2
+    400080: eRBrainB3
+    400082: eRBrainC1
+    400084: eRBrainC2
+    400086: eRBrainC3
+    400088: eRBrainD1
+    400090: eRBrainD2
+    400092: eRBrainD3
+    400094: eREye
+    400096: eRFoot
+    400098: eRKnee
+    400100: eRoot
+    400102: eRSide
+    400104: eTail1
+    400106: eTail2
+    400108: eTail3
+    400110: eTail4
+    400112: eTail5
+    400114: joint42
     2300000: //RootNode
     3300000: //RootNode
     4300000: elephant
+    4300002: elephantMesh
+    7400000: Take 001
     9500000: //RootNode
+    13700000: elephantMesh
   materials:
     importMaterials: 1
     materialName: 0
@@ -35,7 +152,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 50
+    globalScale: 5
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
