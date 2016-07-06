@@ -109,16 +109,22 @@ public class HeadPuzzle : MonoBehaviour {
         }
 
         // rotate randomly and add graphics
-        
         foreach (PuzzlePiece p in puzzlePieces)
         {
             p.AddGraphics();
             p.RandomRotate();
-            
             p.transform.SetParent(transform, false);
         }
 
-        
+        // Redo if rotated puzzle is solved (hopefully doesn't happen forever...)
+        while (IsPuzzleSolved())
+        {
+            foreach (PuzzlePiece p in puzzlePieces)
+            {
+                p.RandomRotate();
+            }
+        }
+     
     }
 	
 	// Update is called once per frame

@@ -14,6 +14,8 @@ public class Elephant : WalksOnNodes
 
     public BoxCollider boxCollider;
 
+    public Eyebrows eyebrows;
+
     public bool moving = true;
 
     public CreatureState currentState = CreatureState.CanInteract;
@@ -65,6 +67,7 @@ public class Elephant : WalksOnNodes
             Player.Instance.interactingCreature == null &&
             currentNode.IsNeighbour(Player.Instance.currentNode))
         {
+            
             currentState = CreatureState.Interacting;
             Player.Instance.InteractWithCreature(this);
             boxCollider.enabled = false;

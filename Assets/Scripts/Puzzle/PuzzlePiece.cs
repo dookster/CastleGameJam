@@ -135,8 +135,6 @@ public class PuzzlePiece : MonoBehaviour {
 
     public void RotateLinksAround()
     {
-        Debug.Log("From: " + linkState);
-
         Link newLinkstate = Link.none;
 
         if (LinkedNorth) newLinkstate |= Link.south;
@@ -145,14 +143,10 @@ public class PuzzlePiece : MonoBehaviour {
         if (LinkedWest) newLinkstate |= Link.east;
 
         linkState = newLinkstate;
-
-        Debug.Log("To: " + (linkState));
     }
 
     public void RotateLinksLeft()
     {
-        Debug.Log("From: " + linkState);
-
         Link newLinkstate = Link.none;
 
         if (LinkedNorth) newLinkstate |= Link.west;
@@ -161,14 +155,10 @@ public class PuzzlePiece : MonoBehaviour {
         if (LinkedWest) newLinkstate |= Link.south;
 
         linkState = newLinkstate;
-
-        Debug.Log("To: " + (linkState));
     }
 
     public void RotateLinksRight()
     {
-        Debug.Log("From: " + linkState);
-        
         Link newLinkstate = Link.none;
 
         if (LinkedNorth) newLinkstate |= Link.east;
@@ -177,10 +167,6 @@ public class PuzzlePiece : MonoBehaviour {
         if (LinkedWest) newLinkstate |= Link.north;
 
         linkState = newLinkstate;
-
-        Debug.Log("To: " + (linkState));
-
-        ownerPuzzle.CheckForSolution();
     }
 
 
@@ -195,8 +181,14 @@ public class PuzzlePiece : MonoBehaviour {
         {
             iTween.MoveBy(gameObject, iTween.Hash("y", moveLength, "time", moveTime));
             iTween.RotateBy(gameObject, iTween.Hash("y", 1f / 4f, "time", rotateTime));
-            iTween.MoveBy(gameObject, iTween.Hash("y", -moveLength, "time", moveTime, "delay", rotateTime, "oncomplete", "RotateLinksRight"));
+            iTween.MoveBy(gameObject, iTween.Hash("y", -moveLength, "time", moveTime, "delay", rotateTime, "oncomplete", "ClickRotateAndCheck"));
         }
+    }
+
+    void ClickRotateAndCheck()
+    {
+        RotateLinksRight();
+        ownerPuzzle.CheckForSolution();
     }
 
     public void AddGraphics()

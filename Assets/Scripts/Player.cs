@@ -215,9 +215,10 @@ public class Player : WalksOnNodes {
     {
         iTween.LookTo(creature.gameObject, iTween.Hash("looktarget", transform, "time", 0.2f));
         yield return new WaitForSeconds(0.2f);
+        creature.eyebrows.Angry();
+        yield return new WaitForSeconds(1f);
         ZoomToPuzzle(creature.puzzleCamTarget, creature.puzzleCamLookTarget);
         interactingCreature = creature;
-
     }
 
     public void StopInteractingWithCreature()
@@ -226,6 +227,13 @@ public class Player : WalksOnNodes {
 
         // TEMP
         iTween.MoveBy(interactingCreature.gameObject, iTween.Hash("y", -2, "time", 2, "delay", settings.cameraZoomSpeed));
+        interactingCreature.eyebrows.Happy();
+        StartCoroutine(MoveCreatureAndUnlock(1f));
+    }
+
+    IEnumerator MoveCreatureAndUnlock(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         interactingCreature.currentNode.locked = false;
         interactingCreature = null;
     }
