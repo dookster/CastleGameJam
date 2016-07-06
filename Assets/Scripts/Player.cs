@@ -45,11 +45,11 @@ public class Player : WalksOnNodes {
 	void Update ()
     {
         // TEST
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SwingItem();
-            //RemoveItem();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    SwingItem();
+        //    //RemoveItem();
+        //}
 
 
         if(interactingCreature == null && canMove) HandleInputDown();
@@ -190,7 +190,7 @@ public class Player : WalksOnNodes {
         Destroy(item);
     }
 
-    void SwingItem()
+    public void SwingItem()
     {
         if (iTween.Count(itemHolder.gameObject) == 0 && itemHolder.childCount > 0)
         {
@@ -309,14 +309,32 @@ public class Player : WalksOnNodes {
         interactingCreature = null;
     }
 
-    private void ZoomToPuzzle(Transform camTarget, Transform puzzle)
+    private void ZoomToPuzzle(Transform[] camTarget, Transform puzzle)
     {
-        iTween.MoveTo(mainCam.gameObject, iTween.Hash("position", camTarget, "looktarget", puzzle, "time", settings.cameraZoomSpeed, "easetype", "linear"));
+        StartCoroutine(ZoomAndOpen(camTarget, puzzle));
+    }
+
+    IEnumerator ZoomAndOpen(Transform[] camTarget, Transform puzzle)
+    {
+        iTween.MoveTo(mainCam.gameObject, iTween.Hash("path", camTarget, "looktarget", puzzle, "time", settings.cameraZoomSpeed, "easetype", "linear"));
+        yield return new WaitForSeconds(0.25f);
+        interactingCreature.OpenHead();
     }
 
     private void ReturnCamera()
     {
-        iTween.MoveTo(mainCam.gameObject, iTween.Hash("position", cameraOrigin, "time", settings.cameraZoomSpeed, "easetype", "linear"));
+        interactingCreature.CloseHead();
+        //iTween.MoveTo(mainCam.gameObject, iTween.Hash("position", cameraOrigin, "time", settings.cameraZoomSpeed, "easetype", "linear"));
+        List<Transform> returnPath = new List<Transform>();        
+        returnPath.AddRange(interactingCreature.puzzleCamTarget);
+        returnPath.Reverse();
+        returnPath.Add(cameraOrigin);
+        iTween.MoveTo(mainCam.gameObject, iTween.Hash("path", returnPath.ToArray(), "time", settings.cameraZoomSpeed, "easetype", "linear"));
         iTween.RotateTo(mainCam.gameObject, iTween.Hash("rotation", cameraOrigin, "time", settings.cameraZoomSpeed, "easetype", "linear"));
+    }
+
+    IEnumerator CloseAndReturn()
+    {
+        yield return new WaitForSeconds(1f);
     }
 }

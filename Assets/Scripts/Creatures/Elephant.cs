@@ -9,8 +9,10 @@ public class Elephant : WalksOnNodes
     public GameObject puzzlePrefab;
 
     public Transform puzzleHinge;
-    public Transform puzzleCamTarget;
+    public Transform[] puzzleCamTarget;
     public Transform puzzleCamLookTarget;
+
+    public Animator animator;
 
     public BoxCollider boxCollider;
 
@@ -36,12 +38,37 @@ public class Elephant : WalksOnNodes
         go.transform.SetParent(puzzleHinge, false);
     }
 
+    public void OpenHead()
+    {
+        animator.Play("Open");
+    }
+
+    public void CloseHead()
+    {
+        animator.Play("Close");
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (iTween.Count(gameObject) == 0)
         {
             MoveOnNodes();
+        }
+
+        if (Input.GetKey(KeyCode.M))
+        {
+            if(animator != null)
+            {
+                OpenHead();                
+            }
+        }
+        if (Input.GetKey(KeyCode.N))
+        {
+            if (animator != null)
+            {
+                CloseHead();
+            }
         }
 
 

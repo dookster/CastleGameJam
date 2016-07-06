@@ -127,6 +127,8 @@ ModelImporter:
     4300002: elephantMesh
     7400000: Take 001
     9500000: //RootNode
+    11100000: elephantMesh
+    11100002: //RootNode
     13700000: elephantMesh
   materials:
     importMaterials: 1
@@ -142,13 +144,157 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 263
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: elephantMesh
+        weight: 1
+      - path: eRoot
+        weight: 1
+      - path: eRoot/eBody
+        weight: 1
+      - path: eRoot/eBody/eLSide
+        weight: 1
+      - path: eRoot/eBody/eLSide/elHip
+        weight: 1
+      - path: eRoot/eBody/eLSide/elHip/eLKnee
+        weight: 1
+      - path: eRoot/eBody/eLSide/elHip/eLKnee/eLFoot
+        weight: 1
+      - path: eRoot/eBody/eNeck
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eBBrain1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eBBrain1/eBBrain2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eBBrain1/eBBrain2/eBBrain3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eFBrain1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eFBrain1/eFBrain2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eFBrain1/eFBrain2/eFBrain2 1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eFBrain1/eFBrain2/eFBrain2 1/eFBrain3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eFHip
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eFHip/eFKnee
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eFHip/eFKnee/eFFoot
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainA1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainA1/eLBrainA2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainA1/eLBrainA2/eLBrainA3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainA1/eLBrainA2/eLBrainA3/eLBrainA4
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainB1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainB1/eLBrainB2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainB1/eLBrainB2/eLBrainB3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainC1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainC1/eLBrainC2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainC1/eLBrainC2/eLBrainC3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainD1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainD1/eLBrainD2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLBrainD1/eLBrainD2/eLBrainD3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eLEye
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainA1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainA1/eRBrainA2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainA1/eRBrainA2/eRBrainA3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainA1/eRBrainA2/eRBrainA3/eRBrainA4
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainB1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainB1/eRBrainB2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainB1/eRBrainB2/eRBrainB3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainC1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainC1/eRBrainC2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainC1/eRBrainC2/eRBrainC3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainD1
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainD1/eRBrainD2
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eRBrainD1/eRBrainD2/eRBrainD3
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/eREye
+        weight: 1
+      - path: eRoot/eBody/eNeck/eHead/joint42
+        weight: 1
+      - path: eRoot/eBody/eRSide
+        weight: 1
+      - path: eRoot/eBody/eRSide/elHip 1
+        weight: 1
+      - path: eRoot/eBody/eRSide/elHip 1/eRKnee
+        weight: 1
+      - path: eRoot/eBody/eRSide/elHip 1/eRKnee/eRFoot
+        weight: 1
+      - path: eRoot/eBody/eTail1
+        weight: 1
+      - path: eRoot/eBody/eTail1/eTail2
+        weight: 1
+      - path: eRoot/eBody/eTail1/eTail2/eTail3
+        weight: 1
+      - path: eRoot/eBody/eTail1/eTail2/eTail3/eTail4
+        weight: 1
+      - path: eRoot/eBody/eTail1/eTail2/eTail3/eTail4/eTail5
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0.9
     isReadable: 1
   meshes:
     lODScreenPercentages: []

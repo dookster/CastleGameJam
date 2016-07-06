@@ -189,6 +189,7 @@ public class PuzzlePiece : MonoBehaviour {
         {
             if (iTween.Count(gameObject) == 0)
             {
+                AudioPlayer.Instance.Play2DAudio(settings.switch1Audio);
                 iTween.MoveBy(gameObject, iTween.Hash("y", moveLength, "time", moveTime));
                 iTween.RotateBy(gameObject, iTween.Hash("y", 1f / 4f, "time", rotateTime));
                 iTween.MoveBy(gameObject, iTween.Hash("y", -moveLength, "time", moveTime, "delay", rotateTime, "oncomplete", "ClickRotateAndCheckRight"));
@@ -200,6 +201,7 @@ public class PuzzlePiece : MonoBehaviour {
         {
             if (iTween.Count(gameObject) == 0)
             {
+                AudioPlayer.Instance.Play2DAudio(settings.switch2Audio);
                 iTween.MoveBy(gameObject, iTween.Hash("y", moveLength, "time", moveTime));
                 iTween.RotateBy(gameObject, iTween.Hash("y", - (1f / 4f), "time", rotateTime));
                 iTween.MoveBy(gameObject, iTween.Hash("y", -moveLength, "time", moveTime, "delay", rotateTime, "oncomplete", "ClickRotateAndCheckLeft"));
@@ -210,6 +212,7 @@ public class PuzzlePiece : MonoBehaviour {
 
     void ClickRotateAndCheckRight()
     {
+        
         RotateLinksRight();
         ownerPuzzle.CheckForSolution();
     }
@@ -221,7 +224,7 @@ public class PuzzlePiece : MonoBehaviour {
 
     public void AddGraphics()
     {
-        Debug.Log("asda: " + linkState);
+        //Debug.Log("asda: " + linkState);
 
         GameObject prefab = settings.puzzlePiece[0];
 

@@ -22,4 +22,13 @@ public class Settings : ScriptableObject
     /// </summary>
     public GameObject[] puzzlePiece;
 
+
+    [Header("Sound")]
+    public AudioClip switch1Audio;
+    public AudioClip switch2Audio;
+
+    public AudioClip footstepAudio;
+    public AudioClip turnAudio;
+
+
 }
