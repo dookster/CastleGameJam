@@ -3,6 +3,10 @@ using System.Collections;
 
 public class WeaponKey : MonoBehaviour {
 
+    public enum KType { Red, Yellow, Green}
+
+    public KType keyType = KType.Red;
+
 	// Use this for initialization
 	void Start () {
 	

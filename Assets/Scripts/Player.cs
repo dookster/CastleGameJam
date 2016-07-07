@@ -156,6 +156,7 @@ public class Player : WalksOnNodes {
 
     public void PickupItem(GameObject itemGraphic)
     {
+        Debug.Log("Picking up item");
         // move to holder
         canMove = false;
         AudioPlayer.Instance.Play2DAudio(settings.pickUpAudio);
@@ -216,7 +217,11 @@ public class Player : WalksOnNodes {
         Node facingNode = GetNodeForMove(FORWARD);
         if(facingNode != null && facingNode.door != null)
         {
-            facingNode.door.Open();
+            WeaponKey key = itemHolder.GetComponentInChildren<WeaponKey>();
+            if(facingNode.door.keyType == key.keyType)
+            {
+                facingNode.door.Open();
+            }
         }
     }
 
@@ -313,9 +318,13 @@ public class Player : WalksOnNodes {
 
     IEnumerator MoveCreatureAndUnlock(float delay)
     {
-        yield return new WaitForSeconds(delay * 3);
+        yield return new WaitForSeconds(delay * 2);
+        interactingCreature.fadeToPink = true;
+        yield return new WaitForSeconds(delay);
         AudioPlayer.Instance.Play2DAudio(settings.creatureHappyAudio);
+
         interactingCreature.eyebrows.Happy();
+
         yield return new WaitForSeconds(delay);
         interactingCreature.currentState = Elephant.CreatureState.Happy;
         interactingCreature.boxCollider.enabled = true;
