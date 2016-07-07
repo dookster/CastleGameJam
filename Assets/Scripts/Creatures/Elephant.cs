@@ -24,12 +24,18 @@ public class Elephant : WalksOnNodes
     public AudioSource stepAudioSource;
     public AudioSource turnAudioSource;
 
+    public bool fadeToPink = false;
+    private float fadeTime = 0.5f;
+    
+
     public bool moving = true;
 
     public CreatureState currentState = CreatureState.CanInteract;
 
     public float moveInterval = 2f;
     private float lastStep = 0;
+
+    public Renderer rend;
 
     // Use this for initialization
     protected override void Start()
@@ -88,7 +94,13 @@ public class Elephant : WalksOnNodes
 
             lastStep = Time.time;
         }
+
+        if (fadeToPink)
+        {
+            rend.material.SetFloat("_Blend", rend.material.GetFloat("_Blend") + fadeTime * Time.deltaTime);
+        }
     }
+    
 
     protected override void Move()
     {

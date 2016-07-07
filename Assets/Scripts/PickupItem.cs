@@ -31,6 +31,7 @@ public class PickupItem : MonoBehaviour {
 
     void OnMouseUpAsButton()
     {
+        Debug.Log("Pick up clicked " + iTween.Count(Player.Instance.gameObject) + " - " + currentNode.IsNeighbour(Player.Instance.currentNode));
         if (iTween.Count(Player.Instance.gameObject) == 0 &&
             Player.Instance.interactingCreature == null &&
             currentNode.IsNeighbour(Player.Instance.currentNode))

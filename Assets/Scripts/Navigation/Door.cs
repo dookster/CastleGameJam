@@ -5,6 +5,8 @@ public class Door : MonoBehaviour {
 
     public Node currentNode;
 
+    public WeaponKey.KType keyType = WeaponKey.KType.Red;
+
     public GameObject[] pieces;
 
 	// Use this for initialization

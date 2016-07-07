@@ -36,11 +36,17 @@ public class Node : MonoBehaviour {
 	}
 
     public bool IsNeighbour(Node otherNode)
-    {
+    {        
+
+        if(north != null) Debug.Log(north.name);
+        if (south != null) Debug.Log(south.name);
+        if (east != null) Debug.Log(east.name);
+        if (west != null) Debug.Log(west.name);
+
         if (north == otherNode) return true;
         if (south == otherNode) return true;
         if (east == otherNode) return true;
-        if (west== otherNode) return true;
+        if (west == otherNode) return true;
 
         return false;
     }
