@@ -15,6 +15,9 @@ public class HeadPuzzle : MonoBehaviour {
     public int width = 4;
     public int height = 4;
 
+    public int removeFrom = 1;
+    public int removeTo = 3;
+
     public PuzzlePiece[,] puzzlePieces;
 
     public Settings settings;
@@ -72,16 +75,32 @@ public class HeadPuzzle : MonoBehaviour {
         }
 
         // remove random pieces
-        for (int x = 0; x < width; x++)
+        List<PuzzlePiece> remainPieces = new List<PuzzlePiece>();
+        foreach (PuzzlePiece p in puzzlePieces)
         {
-            for (int y = 0; y < height; y++)
-            {
-                if(Random.Range(0, width * height) < ((width * height) / 4))
-                {
-                    puzzlePieces[x, y].linkState = PuzzlePiece.Link.none;
-                }
-            }
+            remainPieces.Add(p);
         }
+        Debug.Log("RR " + remainPieces.Count);
+        int tilesToClear = Random.Range(removeFrom, removeTo + 1);
+        while(tilesToClear > 0)
+        {
+            PuzzlePiece rP = remainPieces[Random.Range(0, remainPieces.Count)];
+            rP.linkState = PuzzlePiece.Link.none;
+            //remainPieces.Remove(rP);
+            tilesToClear--;
+        }
+        
+
+        //for (int x = 0; x < width; x++)
+        //{
+        //    for (int y = 0; y < height; y++)
+        //    {
+        //        if(Random.Range(0, width * height) < ((width * height) / 4))
+        //        {
+        //            puzzlePieces[x, y].linkState = PuzzlePiece.Link.none;
+        //        }
+        //    }
+        //}
 
         // remove unconnected links
         for (int x = 0; x < width; x++)

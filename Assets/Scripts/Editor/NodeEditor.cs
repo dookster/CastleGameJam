@@ -4,6 +4,7 @@ using UnityEditor;
 using System.Collections.Generic;
 
 [CustomEditor(typeof(Node))]
+[CanEditMultipleObjects]
 public class NodeEditor : Editor {
 
     
@@ -64,10 +65,10 @@ public class NodeEditor : Editor {
             GuessNeighbours();
         }
 
-        EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Graphics");
-        graphicIndex = EditorGUILayout.Popup(graphicIndex, graphicNames().ToArray());
-        node.tilePrefab = node.settings.tilePrefabs[graphicIndex];
+        //EditorGUILayout.Space();
+        //EditorGUILayout.LabelField("Graphics");
+        //graphicIndex = EditorGUILayout.Popup(graphicIndex, graphicNames().ToArray());
+        //node.tilePrefab = node.settings.tilePrefabs[graphicIndex];
     }
 
     Node AddNode(Vector3 position)
