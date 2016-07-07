@@ -42,6 +42,7 @@ public class Settings : ScriptableObject
     public AudioClip creatureWalkAudio;
     public AudioClip creatureHappyAudio;
     public AudioClip creatureAngryAudio;
+    public AudioClip creatureTurnAudio;
 
     public AudioClip weirdHum;
 }

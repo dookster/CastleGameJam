@@ -48,6 +48,9 @@ public abstract class WalksOnNodes : MonoBehaviour {
         }
     }
 
+    public abstract void JumpToNode(Node jumpNode);
+
+
     protected abstract void Move();
 
     protected void SetTargetNode(Node target)

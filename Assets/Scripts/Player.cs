@@ -183,6 +183,8 @@ public class Player : WalksOnNodes {
             //StartCoroutine(MoveRemovedItem(item));
             item.transform.SetParent(null);
             item.GetComponent<Rigidbody>().isKinematic = false;
+            item.GetComponent<Rigidbody>().AddForce(transform.forward * 50);
+            
         }
     }
 
@@ -208,7 +210,7 @@ public class Player : WalksOnNodes {
     {
         float rotateTime = 1f;
         iTween.PunchRotation(itemHolder.gameObject, iTween.Hash("x", 90f, "time", rotateTime));
-        yield return new WaitForSeconds(rotateTime/5);
+        yield return new WaitForSeconds(rotateTime/10);
 
         // Get any door we're at
         Node facingNode = GetNodeForMove(FORWARD);
@@ -315,9 +317,17 @@ public class Player : WalksOnNodes {
         AudioPlayer.Instance.Play2DAudio(settings.creatureHappyAudio);
         interactingCreature.eyebrows.Happy();
         yield return new WaitForSeconds(delay);
-        iTween.MoveBy(interactingCreature.gameObject, iTween.Hash("y", -2, "time", 2));
-        interactingCreature.currentNode.locked = false;
+        interactingCreature.currentState = Elephant.CreatureState.Happy;
+        interactingCreature.boxCollider.enabled = true;
+        interactingCreature.moving = true;
         interactingCreature = null;
+
+
+        //if (interactingCreature.dieParticles != null) interactingCreature.dieParticles.gameObject.SetActive(true);
+
+        //yield return new WaitForSeconds(delay);
+        //iTween.MoveBy(interactingCreature.gameObject, iTween.Hash("y", -2, "time", 5));
+        //interactingCreature.currentNode.locked = false;
     }
 
     private void ZoomToPuzzle(Transform[] camTarget, Transform puzzle)
@@ -348,5 +358,25 @@ public class Player : WalksOnNodes {
     IEnumerator CloseAndReturn()
     {
         yield return new WaitForSeconds(1f);
+    }
+
+    public  override void JumpToNode(Node jumpNode)
+    {
+        StartCoroutine(Jump(jumpNode));
+        canMove = false;
+    }
+
+    IEnumerator Jump(Node jumpNode)
+    {
+        float jumpSpeed = 3f;
+        float rotateTime = 0.2f;
+        yield return new WaitForSeconds(rotateTime);
+        
+        Vector3[] jumpPath = new Vector3[2];
+        jumpPath[0] = transform.position + (transform.forward + transform.right) / 4;
+        jumpPath[1] = jumpNode.transform.position;
+        iTween.MoveTo(gameObject, iTween.Hash("path", jumpPath, "speed", jumpSpeed, "easetype", "linear"));
+        yield return new WaitForSeconds(1f);
+        canMove = true;
     }
 }
