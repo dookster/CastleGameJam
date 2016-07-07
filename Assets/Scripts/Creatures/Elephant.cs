@@ -18,6 +18,8 @@ public class Elephant : WalksOnNodes
 
     public Eyebrows eyebrows;
 
+    public ParticleSystem dieParticles;
+
     public AudioSource stepAudioSource;
 
     public bool moving = true;

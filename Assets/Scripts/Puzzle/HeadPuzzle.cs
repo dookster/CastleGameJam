@@ -86,7 +86,7 @@ public class HeadPuzzle : MonoBehaviour {
         {
             PuzzlePiece rP = remainPieces[Random.Range(0, remainPieces.Count)];
             rP.linkState = PuzzlePiece.Link.none;
-            //remainPieces.Remove(rP);
+            remainPieces.Remove(rP);
             tilesToClear--;
         }
         

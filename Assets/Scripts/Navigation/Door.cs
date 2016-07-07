@@ -33,6 +33,9 @@ public class Door : MonoBehaviour {
         foreach (GameObject go in pieces)
         {
             Rigidbody body = go.GetComponent<Rigidbody>();
+            Collider col = go.GetComponent<Collider>();
+            col.enabled = true;
+            body.useGravity = true;
             body.AddExplosionForce(200, transform.position - transform.forward, 2);
         }
         yield return new WaitForSeconds(1f);
@@ -41,11 +44,12 @@ public class Door : MonoBehaviour {
         foreach (GameObject go in pieces)
         {
             Rigidbody body = go.GetComponent<Rigidbody>();
-            BoxCollider coll = go.GetComponent<BoxCollider>();
+            Collider coll = go.GetComponent<Collider>();
 
             body.isKinematic = true;
             coll.enabled = false;
         }
+        Player.Instance.RemoveItem();
     }
 
 

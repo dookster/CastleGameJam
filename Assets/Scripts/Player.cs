@@ -168,19 +168,21 @@ public class Player : WalksOnNodes {
         //float rotateTime = 0.5f;
         //iTween.RotateTo(itemGraphic, iTween.Hash("rotation", itemHolder.transform, "time", rotateTime));
         //yield return new WaitForSeconds(rotateTime);
-        iTween.MoveTo(itemGraphic, iTween.Hash("position", itemHolder.position, "time", moveTime, "looktarget", (itemHolder.position + itemHolder.forward)));
+        iTween.MoveTo(itemGraphic, iTween.Hash("position", itemHolder.position, "time", moveTime, "looktarget", (itemHolder.position - itemHolder.forward)));
         yield return new WaitForSeconds(moveTime);
         itemGraphic.transform.SetParent(itemHolder);
 
         canMove = true;
     }
 
-    void RemoveItem()
+    public void RemoveItem()
     {
         GameObject item = itemHolder.GetChild(0).gameObject;
         if (item != null)
         {
-            StartCoroutine(MoveRemovedItem(item));
+            //StartCoroutine(MoveRemovedItem(item));
+            item.transform.SetParent(null);
+            item.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 
