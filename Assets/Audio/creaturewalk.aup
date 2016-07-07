@@ -1,0 +1,68 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="creaturewalk_data" version="1.3.0" audacityversion="2.1.0" sel0="-0.1812850057" sel1="0.9937274660" vpos="144" h="0.0000000000" zoom="498.1174617169" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds">
+	<tags>
+		<tag name="ALBUM" value="Resistor Anthems II"/>
+		<tag name="Encoding time" value="2012-01-31 00:27:22"/>
+		<tag name="TITLE" value="Jumpshot"/>
+		<tag name="major_brand" value="mp42"/>
+		<tag name="BPM (beats per minute)" value="182"/>
+		<tag name="minor_version" value="0"/>
+		<tag name="COMMENTS" value=" 00000000 00000210 000009B0 0000000000526540 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000"/>
+		<tag name="Software" value="GarageBand 5.1"/>
+		<tag name="ARTIST" value="Eric Skiff"/>
+		<tag name="compatible_brands" value="isommp42"/>
+		<tag name="YEAR" value="2012-04-23T09:52"/>
+		<tag name="Composer" value="Eric Skiff"/>
+	</tags>
+	<wavetrack name="dropping-books" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="0.354813" pan="0.0">
+		<waveclip offset="0.32371471">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="19587">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000fed.au" len="19587" min="-0.707131" max="0.707131" rms="0.026822"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="dropping-books2" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="0.079433" pan="0.0">
+		<waveclip offset="-0.18128501">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="26801">
+				<waveblock start="0">
+					<simpleblockfile filename="e00001f9.au" len="26801" min="-1.0" max="0.999969" rms="0.073953"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="dropping-books3" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="0.446684" pan="0.0">
+		<waveclip offset="0.10488138">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="19886">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000581.au" len="19886" min="-1.0" max="1.0" rms="0.034623"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="grunt" channel="2" linked="0" mute="0" solo="0" height="137" minimized="0" isSelected="1" rate="44100" gain="0.251189" pan="0.0">
+		<waveclip offset="0.29297052">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="10652">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000834.au" len="10652" min="-0.462433" max="0.543274" rms="0.040702"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="snort1" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="96000" gain="0.707946" pan="0.0">
+		<waveclip offset="-0.03012670">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="98290">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000ce0.au" len="98290" min="-0.568783" max="0.415494" rms="0.038255"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

@@ -18,6 +18,8 @@ public class Elephant : WalksOnNodes
 
     public Eyebrows eyebrows;
 
+    public AudioSource stepAudioSource;
+
     public bool moving = true;
 
     public CreatureState currentState = CreatureState.CanInteract;
@@ -90,6 +92,7 @@ public class Elephant : WalksOnNodes
         iTween.LookTo(gameObject, iTween.Hash("looktarget", targetNode.transform.position, "time", rotateTime));
         iTween.MoveTo(gameObject, iTween.Hash("delay", rotateTime, "position", targetNode.transform.position, "speed", settings.creatureMoveSpeed, "easetype", "linear"));
         animator.Play("Walk");
+        stepAudioSource.Play();
         StartCoroutine(MoveAndAnimate(rotateTime));
         //iTween.LookTo(gameObject, iTween.Hash("looktarget", targetNode.transform.position, "time", rotateTime));
         //iTween.MoveTo(gameObject, iTween.Hash("position", targetNode.transform.position, "speed", settings.creatureMoveSpeed, "easetype", "linear"));

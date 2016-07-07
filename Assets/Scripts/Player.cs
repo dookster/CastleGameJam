@@ -45,14 +45,17 @@ public class Player : WalksOnNodes {
 	void Update ()
     {
         // TEST
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    SwingItem();
-        //    //RemoveItem();
-        //}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(interactingCreature != null)
+            {
+                StopInteractingWithCreature();
+            }
+            
+        }
 
 
-        if(interactingCreature == null && canMove) HandleInputDown();
+        if (interactingCreature == null && canMove) HandleInputDown();
 
         if (iTween.Count(gameObject) == 0)
         {
@@ -155,7 +158,7 @@ public class Player : WalksOnNodes {
     {
         // move to holder
         canMove = false;
-
+        AudioPlayer.Instance.Play2DAudio(settings.pickUpAudio);
         StartCoroutine(MoveRotatePickup(itemGraphic));
     }
 
@@ -290,6 +293,7 @@ public class Player : WalksOnNodes {
     {
         iTween.LookTo(creature.gameObject, iTween.Hash("looktarget", transform, "time", 0.2f));
         yield return new WaitForSeconds(0.2f);
+        AudioPlayer.Instance.Play2DAudio(settings.creatureAngryAudio);
         creature.eyebrows.Angry();
         yield return new WaitForSeconds(1f);
         ZoomToPuzzle(creature.puzzleCamTarget, creature.puzzleCamLookTarget);
@@ -305,7 +309,8 @@ public class Player : WalksOnNodes {
 
     IEnumerator MoveCreatureAndUnlock(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay * 3);
+        AudioPlayer.Instance.Play2DAudio(settings.creatureHappyAudio);
         interactingCreature.eyebrows.Happy();
         yield return new WaitForSeconds(delay);
         iTween.MoveBy(interactingCreature.gameObject, iTween.Hash("y", -2, "time", 2));
@@ -315,6 +320,7 @@ public class Player : WalksOnNodes {
 
     private void ZoomToPuzzle(Transform[] camTarget, Transform puzzle)
     {
+        AudioPlayer.Instance.Play2DAudio(settings.weirdHum);
         StartCoroutine(ZoomAndOpen(camTarget, puzzle));
     }
 
