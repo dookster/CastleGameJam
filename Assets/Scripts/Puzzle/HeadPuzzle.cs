@@ -24,6 +24,10 @@ public class HeadPuzzle : MonoBehaviour {
 
     public Elephant creature;
 
+    public bool exitPuzzle = false;
+
+    public bool active = true;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -130,7 +134,14 @@ public class HeadPuzzle : MonoBehaviour {
         // rotate randomly and add graphics
         foreach (PuzzlePiece p in puzzlePieces)
         {
-            p.AddGraphics();
+            if (exitPuzzle)
+            {
+                p.AddGraphics(settings.puzzlePieceEnd);
+            }
+            else
+            {
+                p.AddGraphics(settings.puzzlePiece);
+            }
             p.RandomRotate();
             p.transform.SetParent(transform, false);
         }
@@ -143,7 +154,13 @@ public class HeadPuzzle : MonoBehaviour {
                 p.RandomRotate();
             }
         }
-     
+
+
+        // quick end puzzle stuff...
+        if (exitPuzzle)
+        {
+            MovePiecesOut();
+        }
     }
 	
 	// Update is called once per frame
@@ -156,8 +173,15 @@ public class HeadPuzzle : MonoBehaviour {
     {
         if (IsPuzzleSolved())
         {
-            //gameObject.SetActive(false);
-            Player.Instance.StopInteractingWithCreature();
+            if (exitPuzzle)
+            {
+                Debug.Log("GAME OVER");
+                active = false;
+            }
+            else
+            {
+                Player.Instance.StopInteractingWithCreature();
+            }
         }
     }
 
@@ -168,5 +192,32 @@ public class HeadPuzzle : MonoBehaviour {
             if (!p.isFullyLinked()) return false;
         }
         return true;
+    }
+
+
+    // quick hack time
+    private void MovePiecesOut()
+    {
+        puzzlePieces[0, 0].transform.Translate(-2, 0, 2, Space.World);
+        puzzlePieces[1, 0].transform.Translate(2, 0, 2, Space.World);
+        puzzlePieces[0, 1].transform.Translate(-2, 0, -2, Space.World); 
+        puzzlePieces[1, 1].transform.Translate(2, 0, -2, Space.World);
+
+        
+    }
+
+    public void MovePiecesIn()
+    {
+        StartCoroutine(SlidePiecesIn());
+    }
+
+    IEnumerator SlidePiecesIn()
+    {
+        yield return new WaitForSeconds(1f);
+
+        iTween.MoveTo(puzzlePieces[0, 0].gameObject, iTween.Hash("position", puzzlePieces[0, 0].gameObject.transform.position + new Vector3(2, 0, -2), "time", 2, "easetype", "linear"));
+        iTween.MoveTo(puzzlePieces[1, 0].gameObject, iTween.Hash("position", puzzlePieces[1, 0].gameObject.transform.position + new Vector3(-2, 0, -2), "time", 2, "easetype", "linear"));
+        iTween.MoveTo(puzzlePieces[0, 1].gameObject, iTween.Hash("position", puzzlePieces[0, 1].gameObject.transform.position + new Vector3(2, 0, 2), "time", 2, "easetype", "linear"));
+        iTween.MoveTo(puzzlePieces[1, 1].gameObject, iTween.Hash("position", puzzlePieces[1, 1].gameObject.transform.position + new Vector3(-2, 0, 2), "time", 2, "easetype", "linear"));
     }
 }

@@ -175,7 +175,7 @@ public class PuzzlePiece : MonoBehaviour {
     void OnMouseOver()
     {
         // are we playing this game?
-        if(ownerPuzzle.creature != Player.Instance.interactingCreature)
+        if(ownerPuzzle.creature != Player.Instance.interactingCreature || !ownerPuzzle.active)
         {
             return;
         }
@@ -222,11 +222,11 @@ public class PuzzlePiece : MonoBehaviour {
         ownerPuzzle.CheckForSolution();
     }
 
-    public void AddGraphics()
+    public void AddGraphics(GameObject[] puzzlePieces)
     {
         //Debug.Log("asda: " + linkState);
 
-        GameObject prefab = settings.puzzlePiece[0];
+        GameObject prefab = puzzlePieces[0];
 
         switch (linkState)
         {
@@ -234,28 +234,28 @@ public class PuzzlePiece : MonoBehaviour {
             case Link.east:
             case Link.south:
             case Link.west:
-                prefab = settings.puzzlePiece[1];
+                prefab = puzzlePieces[1];
                 break;
 
             case lineHorz:
             case lineVert:
-                prefab = settings.puzzlePiece[2];
+                prefab = puzzlePieces[2];
                 break;
 
             case corner1:
             case corner2:
             case corner3:
             case corner4:
-                prefab = settings.puzzlePiece[3];
+                prefab = puzzlePieces[3];
                 break;
             case tSection1:
             case tSection2:
             case tSection3:
             case tSection4:
-                prefab = settings.puzzlePiece[4];
+                prefab = puzzlePieces[4];
                 break;
             case cross:
-                prefab = settings.puzzlePiece[5];
+                prefab = puzzlePieces[5];
                 break;
 
         }

@@ -12,7 +12,13 @@ public class Player : WalksOnNodes {
 
     public Transform itemHolder;
 
+    public Transform[] endGamePath;
+    public Transform endGameLookPoint;
+    public HeadPuzzle endGamePuzzle;
+
     public Elephant interactingCreature = null;
+
+    private bool gameOver = false;
 
     private const int FORWARD = 0;
     private const int BACK = 1;
@@ -44,8 +50,13 @@ public class Player : WalksOnNodes {
 	
 	void Update ()
     {
-        // TEST
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+        // TEST
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             if(interactingCreature != null)
             {
@@ -76,6 +87,36 @@ public class Player : WalksOnNodes {
             MoveOnNodes();
         }
 
+
+        if(currentNode.name == "EXIT" && !gameOver)
+        {
+            EndGame();
+            gameOver = true;
+        }
+    }
+
+    private void EndGame()
+    {
+        canMove = false;
+        StartCoroutine(EndGameSequence());
+    }
+
+    IEnumerator EndGameSequence()
+    {
+        yield return new WaitForSeconds(1f);
+
+        // some effect + sound
+
+        // move player up
+        iTween.RotateTo(gameObject, iTween.Hash("x", 90, "y", 90, "z", 0, "time", 2f, "easetyp", "linear"));
+        yield return new WaitForSeconds(2f);
+        iTween.MoveTo(gameObject, iTween.Hash("path", endGamePath, "speed", 5, "easetype", "linear", "looptype", "none"));
+        yield return new WaitForSeconds(10f);
+
+        // show puzzle...
+        endGamePuzzle.MovePiecesIn();
+        yield return new WaitForSeconds(1f);
+        endGamePuzzle.active = true;
     }
 
     private Node GetNodeForMove(int relativeMoveDir) 
