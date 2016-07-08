@@ -6,11 +6,14 @@ public class PickupItem : MonoBehaviour {
     public Node currentNode;
     public GameObject itemGraphic;
 
+    private Collider col;
+
 	// Use this for initialization
 	void Start ()
     {
         currentNode.locked = true;
         IdleAnimate();
+        col = GetComponent<Collider>();
 	}
 	
 	// Update is called once per frame
@@ -36,6 +39,7 @@ public class PickupItem : MonoBehaviour {
             Player.Instance.interactingCreature == null &&
             currentNode.IsNeighbour(Player.Instance.currentNode))
         {
+            col.enabled = false;
             StopIdleAnimaion();
             Player.Instance.PickupItem(itemGraphic);
             currentNode.locked = false;

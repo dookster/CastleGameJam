@@ -31,6 +31,9 @@ public class Settings : ScriptableObject
     public AudioClip switch1Audio;
     public AudioClip switch2Audio;
 
+    public AudioClip exitSwitchAudio1;
+    public AudioClip exitSwitchAudio2;
+
     public AudioClip[] footstepAudio;
     public AudioClip[] turnAudio;
 
@@ -47,4 +50,9 @@ public class Settings : ScriptableObject
     public AudioClip creatureTurnAudio;
 
     public AudioClip weirdHum;
+    public AudioClip windAudio;
+    public AudioClip exitColumnAudio;
+    public AudioClip endBellAudio;
+
+
 }

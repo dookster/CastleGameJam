@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityStandardAssets.ImageEffects;
 
 public class Player : WalksOnNodes {
 
@@ -17,6 +18,9 @@ public class Player : WalksOnNodes {
     public HeadPuzzle endGamePuzzle;
 
     public Elephant interactingCreature = null;
+
+    public MusicFader music;
+    public BloomAndFlares bloom;
 
     private bool gameOver = false;
 
@@ -53,6 +57,7 @@ public class Player : WalksOnNodes {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+            //FadeToWhite();
         }
 
         // TEST
@@ -106,15 +111,20 @@ public class Player : WalksOnNodes {
         yield return new WaitForSeconds(1f);
 
         // some effect + sound
+        music.FadeDown();
+        yield return new WaitForSeconds(1f);
+        AudioPlayer.Instance.Play2DAudio(settings.windAudio, 0.7f);
 
         // move player up
-        iTween.RotateTo(gameObject, iTween.Hash("x", 90, "y", 90, "z", 0, "time", 2f, "easetyp", "linear"));
+        iTween.RotateTo(gameObject, iTween.Hash("x", 90, "y", 90, "z", 0, "time", 4f, "easetyp", "linear"));
         yield return new WaitForSeconds(2f);
         iTween.MoveTo(gameObject, iTween.Hash("path", endGamePath, "speed", 5, "easetype", "linear", "looptype", "none"));
         yield return new WaitForSeconds(10f);
 
         // show puzzle...
         endGamePuzzle.MovePiecesIn();
+        yield return new WaitForSeconds(2f);
+        AudioPlayer.Instance.Play2DAudio(settings.weirdHum);
         yield return new WaitForSeconds(1f);
         endGamePuzzle.active = true;
     }
@@ -447,4 +457,25 @@ public class Player : WalksOnNodes {
         yield return new WaitForSeconds(1f);
         canMove = true;
     }
+
+    public void FadeToWhite()
+    {
+        StartCoroutine(WhiteOut());
+    }
+
+    IEnumerator WhiteOut()
+    {
+        yield return new WaitForSeconds(1f);
+
+        while(bloom.bloomThreshold > 0 || bloom.bloomIntensity < 10)
+        {
+            bloom.bloomThreshold = Mathf.Clamp(bloom.bloomThreshold - (0.2f * Time.deltaTime), 0, 5);
+            bloom.bloomIntensity = Mathf.Clamp(bloom.bloomIntensity + (2f * Time.deltaTime), 0, 10);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(5f);
+        Application.Quit();
+    }
+
 }

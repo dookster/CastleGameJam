@@ -175,7 +175,8 @@ public class HeadPuzzle : MonoBehaviour {
         {
             if (exitPuzzle)
             {
-                Debug.Log("GAME OVER");
+                AudioPlayer.Instance.Play2DAudio(settings.endBellAudio);
+                Player.Instance.FadeToWhite();
                 active = false;
             }
             else
@@ -198,10 +199,10 @@ public class HeadPuzzle : MonoBehaviour {
     // quick hack time
     private void MovePiecesOut()
     {
-        puzzlePieces[0, 0].transform.Translate(-2, 0, 2, Space.World);
-        puzzlePieces[1, 0].transform.Translate(2, 0, 2, Space.World);
-        puzzlePieces[0, 1].transform.Translate(-2, 0, -2, Space.World); 
-        puzzlePieces[1, 1].transform.Translate(2, 0, -2, Space.World);
+        puzzlePieces[0, 0].transform.Translate(-3, 0, 3, Space.World);
+        puzzlePieces[1, 0].transform.Translate(3, 0, 3, Space.World);
+        puzzlePieces[0, 1].transform.Translate(-3, 0, -3, Space.World); 
+        puzzlePieces[1, 1].transform.Translate(3, 0, -3, Space.World);
 
         
     }
@@ -215,9 +216,9 @@ public class HeadPuzzle : MonoBehaviour {
     {
         yield return new WaitForSeconds(1f);
 
-        iTween.MoveTo(puzzlePieces[0, 0].gameObject, iTween.Hash("position", puzzlePieces[0, 0].gameObject.transform.position + new Vector3(2, 0, -2), "time", 2, "easetype", "linear"));
-        iTween.MoveTo(puzzlePieces[1, 0].gameObject, iTween.Hash("position", puzzlePieces[1, 0].gameObject.transform.position + new Vector3(-2, 0, -2), "time", 2, "easetype", "linear"));
-        iTween.MoveTo(puzzlePieces[0, 1].gameObject, iTween.Hash("position", puzzlePieces[0, 1].gameObject.transform.position + new Vector3(2, 0, 2), "time", 2, "easetype", "linear"));
-        iTween.MoveTo(puzzlePieces[1, 1].gameObject, iTween.Hash("position", puzzlePieces[1, 1].gameObject.transform.position + new Vector3(-2, 0, 2), "time", 2, "easetype", "linear"));
+        iTween.MoveTo(puzzlePieces[0, 0].gameObject, iTween.Hash("position", puzzlePieces[0, 0].gameObject.transform.position + new Vector3(3, 0, -3), "time", 2, "easetype", "linear"));
+        iTween.MoveTo(puzzlePieces[1, 0].gameObject, iTween.Hash("position", puzzlePieces[1, 0].gameObject.transform.position + new Vector3(-3, 0, -3), "time", 2, "easetype", "linear"));
+        iTween.MoveTo(puzzlePieces[0, 1].gameObject, iTween.Hash("position", puzzlePieces[0, 1].gameObject.transform.position + new Vector3(3, 0, 3), "time", 2, "easetype", "linear"));
+        iTween.MoveTo(puzzlePieces[1, 1].gameObject, iTween.Hash("position", puzzlePieces[1, 1].gameObject.transform.position + new Vector3(-3, 0, 3), "time", 2, "easetype", "linear"));
     }
 }
