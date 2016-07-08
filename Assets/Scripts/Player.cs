@@ -54,6 +54,18 @@ public class Player : WalksOnNodes {
             
         }
 
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            TryToOpenDoor(WeaponKey.KType.Green);
+            TryToOpenDoor(WeaponKey.KType.Red);
+            TryToOpenDoor(WeaponKey.KType.Yellow);
+        }
+
+        // Swing weaponkey
+        if (interactingCreature == null && Input.GetMouseButtonDown(1) && iTween.Count(gameObject) == 0)
+        {
+            SwingItem();
+        }
 
         if (interactingCreature == null && canMove) HandleInputDown();
 
@@ -172,12 +184,13 @@ public class Player : WalksOnNodes {
         iTween.MoveTo(itemGraphic, iTween.Hash("position", itemHolder.position, "time", moveTime, "looktarget", (itemHolder.position - itemHolder.forward)));
         yield return new WaitForSeconds(moveTime);
         itemGraphic.transform.SetParent(itemHolder);
-
+        itemGraphic.layer = LayerMask.NameToLayer("weapon");
         canMove = true;
     }
 
     public void RemoveItem()
     {
+        if (itemHolder.childCount == 0) return;
         GameObject item = itemHolder.GetChild(0).gameObject;
         if (item != null)
         {
@@ -185,7 +198,7 @@ public class Player : WalksOnNodes {
             item.transform.SetParent(null);
             item.GetComponent<Rigidbody>().isKinematic = false;
             item.GetComponent<Rigidbody>().AddForce(transform.forward * 50);
-            
+            item.layer = LayerMask.NameToLayer("Default");
         }
     }
 
@@ -212,13 +225,17 @@ public class Player : WalksOnNodes {
         float rotateTime = 1f;
         iTween.PunchRotation(itemHolder.gameObject, iTween.Hash("x", 90f, "time", rotateTime));
         yield return new WaitForSeconds(rotateTime/10);
+        WeaponKey key = itemHolder.GetComponentInChildren<WeaponKey>();
+        TryToOpenDoor(key.keyType);
+    }
 
+    private void TryToOpenDoor(WeaponKey.KType keyType)
+    {
         // Get any door we're at
         Node facingNode = GetNodeForMove(FORWARD);
-        if(facingNode != null && facingNode.door != null)
+        if (facingNode != null && facingNode.door != null)
         {
-            WeaponKey key = itemHolder.GetComponentInChildren<WeaponKey>();
-            if(facingNode.door.keyType == key.keyType)
+            if (facingNode.door.keyType == keyType)
             {
                 facingNode.door.Open();
             }
@@ -360,6 +377,7 @@ public class Player : WalksOnNodes {
         returnPath.AddRange(interactingCreature.puzzleCamTarget);
         returnPath.Reverse();
         returnPath.Add(cameraOrigin);
+        AudioPlayer.Instance.Play2DAudio(settings.weirdHum);
         iTween.MoveTo(mainCam.gameObject, iTween.Hash("path", returnPath.ToArray(), "time", settings.cameraZoomSpeed, "easetype", "linear"));
         iTween.RotateTo(mainCam.gameObject, iTween.Hash("rotation", cameraOrigin, "time", settings.cameraZoomSpeed, "easetype", "linear"));
     }
