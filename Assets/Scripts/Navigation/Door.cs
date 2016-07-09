@@ -9,6 +9,8 @@ public class Door : MonoBehaviour {
 
     public GameObject[] pieces;
 
+    public ParticleSystem[] particles;
+
 	// Use this for initialization
 	void Start () {
         currentNode.locked = true;
@@ -27,6 +29,13 @@ public class Door : MonoBehaviour {
     {
         StartCoroutine(OpenAnimation());
         AudioPlayer.Instance.Play2DAudio(Player.Instance.settings.openDoorAudio);
+
+        // Particles seem to only play when you back out, disabling for now
+        //foreach (ParticleSystem p in particles)
+        //{
+        //    p.Play();
+        //}
+
     }
 
     IEnumerator OpenAnimation()

@@ -39,7 +39,7 @@ internal class StandardShaderGUI : ShaderGUI
 		public static GUIContent detailMaskText = new GUIContent("Detail Mask", "Mask for Secondary Maps (A)");
 		public static GUIContent detailAlbedoText = new GUIContent("Detail Albedo x2", "Albedo (RGB) multiplied by 2");
 		public static GUIContent detailNormalMapText = new GUIContent("Normal Map", "Normal Map");
-        public static GUIContent curvatureText = new GUIContent("Curvature", "Float (negative values inverts shape)");
+       // public static GUIContent curvatureText = new GUIContent("Curvature", "Float (negative values inverts shape)");
 
 
 		public static string whiteSpaceString = " ";
@@ -73,7 +73,7 @@ internal class StandardShaderGUI : ShaderGUI
 	MaterialProperty detailNormalMapScale = null;
 	MaterialProperty detailNormalMap = null;
 	MaterialProperty uvSetSecondary = null;
-    MaterialProperty curvature = null;
+    //MaterialProperty curvature = null;
 
         
 
@@ -113,7 +113,7 @@ internal class StandardShaderGUI : ShaderGUI
 		detailNormalMapScale = FindProperty ("_DetailNormalMapScale", props);
 		detailNormalMap = FindProperty ("_DetailNormalMap", props);
 		uvSetSecondary = FindProperty ("_UVSec", props);
-        curvature = FindProperty("_Curvature", props);
+        //curvature = FindProperty("_Curvature", props);
 	}
 
 	public override void OnGUI (MaterialEditor materialEditor, MaterialProperty[] props)
@@ -156,7 +156,7 @@ internal class StandardShaderGUI : ShaderGUI
 			m_MaterialEditor.TextureScaleOffsetProperty(albedoMap);
 			if (EditorGUI.EndChangeCheck())
 				emissionMap.textureScaleAndOffset = albedoMap.textureScaleAndOffset; // Apply the main texture scale and offset to the emission texture as well, for Enlighten's sake
-            m_MaterialEditor.ShaderProperty(curvature, Styles.curvatureText.text);
+            //m_MaterialEditor.ShaderProperty(curvature, Styles.curvatureText.text);
             EditorGUILayout.Space();
 
 			// Secondary properties
