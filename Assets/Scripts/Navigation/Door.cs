@@ -38,6 +38,14 @@ public class Door : MonoBehaviour {
 
     }
 
+    void OnMouseUpAsButton()
+    {
+        if(Player.Instance.GetFacingNode() == currentNode)
+        {
+            Player.Instance.SwingItem();
+        }
+    }
+
     IEnumerator OpenAnimation()
     {
 

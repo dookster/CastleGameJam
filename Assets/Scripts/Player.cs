@@ -22,6 +22,8 @@ public class Player : WalksOnNodes {
     public MusicFader music;
     public BloomAndFlares bloom;
 
+    public GameObject[] disableAtEnd;
+
     private bool gameOver = false;
 
     private const int FORWARD = 0;
@@ -56,7 +58,8 @@ public class Player : WalksOnNodes {
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            //Application.Quit();
+            Application.LoadLevel(Application.loadedLevel);
             //FadeToWhite();
         }
 
@@ -115,6 +118,12 @@ public class Player : WalksOnNodes {
         yield return new WaitForSeconds(1f);
         AudioPlayer.Instance.Play2DAudio(settings.windAudio, 0.7f);
 
+        //Disable some stuff
+        foreach(GameObject go in disableAtEnd)
+        {
+            go.SetActive(false);
+        }
+
         // move player up
         iTween.RotateTo(gameObject, iTween.Hash("x", 90, "y", 90, "z", 0, "time", 4f, "easetyp", "linear"));
         yield return new WaitForSeconds(2f);
@@ -127,6 +136,11 @@ public class Player : WalksOnNodes {
         AudioPlayer.Instance.Play2DAudio(settings.weirdHum);
         yield return new WaitForSeconds(1f);
         endGamePuzzle.active = true;
+    }
+
+    public Node GetFacingNode()
+    {
+        return GetNodeForMove(FORWARD);
     }
 
     private Node GetNodeForMove(int relativeMoveDir) 
@@ -356,7 +370,7 @@ public class Player : WalksOnNodes {
         AudioClip stepclip = settings.footstepAudio[UnityEngine.Random.Range(0, settings.footstepAudio.Length)];
         AudioPlayer.Instance.Play2DAudio(stepclip);
 
-        iTween.MoveTo(gameObject, iTween.Hash("position", targetNode.transform.position, "speed", settings.playerMoveSpeed, "easetype", "linear"));
+        iTween.MoveTo(gameObject, iTween.Hash("position", targetNode.transform.position, "speed", settings.playerMoveSpeed, "easetype", "easeInOutCubic"));
     }
 
     public void InteractWithCreature(Elephant creature)
@@ -380,8 +394,10 @@ public class Player : WalksOnNodes {
     public void StopInteractingWithCreature()
     {
         ReturnCamera();
-        
-        StartCoroutine(MoveCreatureAndUnlock(1f));
+        if(interactingCreature != null)
+        {
+            StartCoroutine(MoveCreatureAndUnlock(1f));
+        }
     }
 
     IEnumerator MoveCreatureAndUnlock(float delay)
@@ -415,7 +431,7 @@ public class Player : WalksOnNodes {
 
     IEnumerator ZoomAndOpen(Transform[] camTarget, Transform puzzle)
     {
-        iTween.MoveTo(mainCam.gameObject, iTween.Hash("path", camTarget, "looktarget", puzzle, "time", settings.cameraZoomSpeed, "easetype", "linear"));
+        iTween.MoveTo(mainCam.gameObject, iTween.Hash("path", camTarget, "looktarget", puzzle, "time", settings.cameraZoomSpeed, "easetype", "easeInOutSine"));
         yield return new WaitForSeconds(0.25f);
         interactingCreature.OpenHead();
     }
@@ -429,8 +445,8 @@ public class Player : WalksOnNodes {
         returnPath.Reverse();
         returnPath.Add(cameraOrigin);
         AudioPlayer.Instance.Play2DAudio(settings.weirdHum);
-        iTween.MoveTo(mainCam.gameObject, iTween.Hash("path", returnPath.ToArray(), "time", settings.cameraZoomSpeed, "easetype", "linear"));
-        iTween.RotateTo(mainCam.gameObject, iTween.Hash("rotation", cameraOrigin, "time", settings.cameraZoomSpeed, "easetype", "linear"));
+        iTween.MoveTo(mainCam.gameObject, iTween.Hash("path", returnPath.ToArray(), "time", settings.cameraZoomSpeed, "easetype", "easeInOutSine"));
+        iTween.RotateTo(mainCam.gameObject, iTween.Hash("rotation", cameraOrigin, "time", settings.cameraZoomSpeed, "easetype", "easeInOutSine"));
     }
 
     IEnumerator CloseAndReturn()
@@ -476,6 +492,7 @@ public class Player : WalksOnNodes {
 
         yield return new WaitForSeconds(5f);
         Application.Quit();
+        //Application.LoadLevel(Application.loadedLevel);
     }
 
 }

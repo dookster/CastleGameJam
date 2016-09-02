@@ -27,7 +27,11 @@ public class Settings : ScriptableObject
     public GameObject[] puzzlePieceEnd;
 
 
+    public AudioClip RandomSwitch { get { return switchAudios[Random.Range(0, switchAudios.Length)]; } }
+
     [Header("Sound")]
+    public AudioClip[] switchAudios;
+
     public AudioClip switch1Audio;
     public AudioClip switch2Audio;
 
